@@ -54,8 +54,14 @@ public class ValidateStandardTest {
     Map<String, Standard> schemas = new HashMap<>();
     CodeSource src = ValidateStandard.class.getProtectionDomain().getCodeSource();
     if (src != null) {
-      File schemasRoot =
-        Paths.get(src.getLocation().getPath(), ValidateStandard.SCHEMAS_RESOURCE_PATH).toFile();
+      String path = src.getLocation().getPath();
+       if (System.getProperty("os.name").toLowerCase().contains("win")) {
+         // Remove the leading slash if it exists and the OS is Windows
+         if (path.startsWith("/")) {
+           path = path.substring(1);
+         }
+       }
+       File schemasRoot = Paths.get(path, ValidateStandard.SCHEMAS_RESOURCE_PATH).toFile();
 
       if (!schemasRoot.isDirectory()) {
         throw new IOException(

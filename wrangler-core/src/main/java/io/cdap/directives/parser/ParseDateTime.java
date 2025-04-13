@@ -36,6 +36,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Directive for parsing a string in the specified format to DateTime.
@@ -66,7 +67,7 @@ public class ParseDateTime implements Directive, Lineage {
     this.column = ((ColumnName) args.value(COLUMN)).value();
     this.format = args.value(FORMAT).value().toString();
     try {
-      this.formatter = DateTimeFormatter.ofPattern(this.format);
+      this.formatter = DateTimeFormatter.ofPattern(this.format, Locale.US);
     } catch (IllegalArgumentException exception) {
       throw new DirectiveParseException(NAME, String.format("'%s' is an invalid datetime format.", this.format),
                                         exception);

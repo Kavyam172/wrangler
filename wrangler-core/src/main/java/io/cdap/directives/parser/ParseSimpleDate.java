@@ -42,6 +42,7 @@ import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 /**
@@ -68,7 +69,7 @@ public class ParseSimpleDate implements Directive, Lineage {
   public void initialize(Arguments args) throws DirectiveParseException {
     this.column = ((ColumnName) args.value("column")).value();
     String format = ((Text) args.value("format")).value();
-    this.formatter = new SimpleDateFormat(format);
+    this.formatter = new SimpleDateFormat(format, Locale.US);
     // CDAP-19615 Use pure Gregorian Calendar to avoid Julian date precision loss
     GregorianCalendar gc = new GregorianCalendar(TimeZone.getTimeZone("UTC"));
     gc.setGregorianChange(new Date(Long.MIN_VALUE));

@@ -33,6 +33,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -86,7 +87,7 @@ public class ParseSimpleDateTest {
 
     Assert.assertEquals(1, resultRows.size());
     for (int i = 0; i < numValues; i++) {
-      SimpleDateFormat formatter = new SimpleDateFormat(patterns.get(i));
+      SimpleDateFormat formatter = new SimpleDateFormat(patterns.get(i), Locale.US);
       formatter.setTimeZone(TimeZone.getTimeZone("UTC"));
 
       ZonedDateTime zonedDateTime = ZonedDateTime.from(
